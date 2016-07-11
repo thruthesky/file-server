@@ -9,7 +9,7 @@
 /**
  * --------------------- EDIT ---------------------------
  */
-$url_file_server = 'http://www.file-server.com/file-upload/';
+$url_file_server = "http://".$_SERVER['HTTP_HOST']."/file-upload/";
 $file_server_secret_key = 'Change it with any sting as you wish. But once it is set, it should be changed. thruthesky';
 // --------------------- DON'T EDIT ---------------------
 
@@ -36,20 +36,30 @@ $name = md5( $str );
 $sub_folder = substr($first_md5, 0,  1);
 $path_middle = "data/upload/$_REQUEST[domain]/$sub_folder/";
 if ( ! is_dir( $path_middle) ) {
-    @mkdir( $path_middle );
+    @mkdir( $path_middle, 0777, true );
 }
 
 $path_upload = "data/upload/$_REQUEST[domain]/$sub_folder/{$first_md5}_$second_md5.$ext";
 
 if ( $file['error'] ) die($file['error']);
-if ( ! move_uploaded_file( $file['tmp_name'], $path_upload ) ) die( "Failed on moving uploaded file." );
+if ( ! @move_uploaded_file( $file['tmp_name'], $path_upload ) ) {
+	$url = "";
+	$e = error_get_last();
+	$error = "$e[message] at $e[line] on $e[file]";
+	
+}
+else {
+	$error = '';
+	$url = "$url_file_server$path_upload";
+}
 
 
 
 ?>
 <script>
     var data = {};
-    data.url = "<?php echo $url_file_server?><?php echo $path_upload?>";
+	data.error = "<?php echo $error?>";
+    data.url = "<?php echo $url?>";
     data.filename = "<?php echo $filename?>";
     parent.postMessage(data, "*");
 </script>
