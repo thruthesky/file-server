@@ -39,7 +39,7 @@ if ( ! is_dir( $path_middle) ) {
     @mkdir( $path_middle );
 }
 
-$path_upload = "data/upload/$_REQUEST[domain]/$sub_folder/$first_md5-$second_md5.$ext";
+$path_upload = "data/upload/$_REQUEST[domain]/$sub_folder/{$first_md5}_$second_md5.$ext";
 
 if ( $file['error'] ) die($file['error']);
 if ( ! move_uploaded_file( $file['tmp_name'], $path_upload ) ) die( "Failed on moving uploaded file." );
