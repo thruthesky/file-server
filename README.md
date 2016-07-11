@@ -1,29 +1,143 @@
-# FILE UPLOAD
+# File Upload
 
+File management server
+
+
+
+
+# 중요
+
+* 용감하게 웹을 통한 파일 삭제 기능을 제공하지 않는다.
+
+    * 즉, 웹이 아닌 cli 를 통한 삭제 기능을 제공한다. ( 웹에서 파일이 삭제될 염려가 없다. )
+    
+    * 이렇게 하기 위해서는
+     
+        1. 클라이언트 사이트에서 '사용중인 파일 목록'을 추출 할 수 있어야 한다.
+    
+        2. '사용중인 파일 목록'과 파일 서버에 저장된 파일 목록을 비교해서,
+          
+            3. '사용중인 파일 목록'에 없는 파일 서버에 저장된 파일이 있으면, 그 파일 서버의 파일을 지우면 된다.
+            
+            4. 서버에 저장된 파일을 지울 때에는 모든 썸네일도 같이 삭제를 해야 한다.
+            
+                -xs, -sm, -md, -lg, -xl 의 파일이 존재하는지 하니씩 확인한다. 아스테리크(*)로 파일 존재 확인을 하지 않는다.
+                
+                
+
+* 클라이언트 사이트의 데이터베이스에 사용중인 파일을 기록해야 한다.
+
+
+# 파일명과 썸네일
+
+썸네일은 xs,sm,md,lg,xl 로 할 수 있다.
+
+원본파일이 abcde.png 라면 abcdefgh-xs.png, abcde-sm.png, abcde-md.png, abcde-lg.png, abcde-xl.png 등으로 할 수 있다.
+
+
+# 웹으로 부터 입력
+
+"파일이름 + timestamp + ip" 를 md5 로 첫번째 문자열을 만들고
+"file_server_secret_key + domain + uid" 를 md5 로 해서 두번째 문자열을 만든다.
+
+파일을 이름은 "첫번째md5_두번째md5.확장자" 와 같이 된다.
+
+첫번째md5 와 두번째md5 사이에 언더바(_)가 들어간다. 확장자 앞에는 점(.)가 들어간다.
+
+그리고 썸네일에 따라, "첫번째md5_두번째md5-lg.확장자" 와 같이 파일 이름 끝에 "-md" 와 같이 크기를 지정하는 문자열이 붙는다.
+
+
+# 파일 저장 경로
+
+첫번째md5 의 첫글짜를 떼서 서브폴더를 만들고 그 안에 저장한다. 이렇게 하므로 하나의 폴더에 모든 파일이 저장되는 것을 막는다.
+
+
+
+
+
+--------------------------------------
+
+이하 오래된 설명
+
+--------------------------------------
+
+
+# file-upload
 
 This is a file upload server which support many different kinds of web site.
 
+* When a site gets bigger, the file storage gets bigger.
+* When a site gets bigger, the site is needed to be distributed.
+ 
+ And this is where file server comes.
+ 
+
+# Installation
+
+By creating upload folder, the installation will be done.
+
+the folder path should be "data/upload/domain" where 'domain' is the input of file upload. 
 
 
 
 
 
+# Coding guide
 
-xforum puts file into a different server.
+## Input query variable
 
-the setting var - xforum_url_file_server will have the url of the file server.
-
-deliver user's ID or user's login ID, as secret key, and md5() with file-server/config.php's $secret_key.
-
-and md5() with filename + time() + IP 
-
-file name will be "first-md5.second-md5.extension"
-
-so, unless the hacker knows the user's secret key, he would have difficulty to delete files.
+* uid - unique users id ( it can be combination of "user unqiue NO + user login ID + Registered Date" )
+* domain - unique domain of the site. it is a realm or an ID of the site.. not a actual domain.
+* $_FILES['userfile'] - file upload info.
 
 
-git 
 
+first md5 = md5 ( filename + time() + IP )
+second md5 = md5( secret_key + domain + uid )
+
+
+To make it difficulty to guess, the uid must be difficult to guess.
+
+actual file name will be in "first-md5.second-md5.extension"
+
+
+* Hackers may delete any file if they know 'uid'. so it is important to make 'uid' is difficult to guess.
+ 
+* uid should be unique value for each user and should not be changed.
+  
+
+## File Server Secret Key
+
+* Without file server secret key, one can easily guess first-md5.
+
+    * if there is no file server secret key, one can generate md5 with random string.
+        * but if there is secret key, it is more difficult to guess it.
+
+
+
+
+
+## To delete a file.
+
+
+* The user must provide domain, uid, filename.
+
+    * ?domain=xxxx&uid=xxxx&filename=xxxxx
+    
+    * the script will make 'first_md5' and compare it with the file name.
+    
+        * if match, delete it.
+        
+        * if not match, the file is not owned by the user.
+         
+
+# WARNING
+
+The 'uid' should not be exposed any where in the site.
+
+This is very important.
+
+When a user deletes a file, the script must generate the 'uid' on the fly and pass it to file server.
 
 
 
