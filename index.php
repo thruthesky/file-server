@@ -12,7 +12,8 @@
 $url_file_server = "http://".$_SERVER['HTTP_HOST']."/file-upload/";
 $file_server_secret_key = 'Change it with any sting as you wish. But once it is set, it should be changed. thruthesky';
 // --------------------- DON'T EDIT ---------------------
-
+header('Access-Control-Allow-Origin: *');
+check_input();
 $second_md5 = md5("$file_server_secret_key$_REQUEST[domain]$_REQUEST[uid]");
 
 
@@ -54,7 +55,14 @@ else {
 }
 
 
-
+if ( isset($_REQUEST['response']) && $_REQUEST['response'] == 'ajax' ) {
+    echo json_encode( [
+        'error' => $error,
+        'url' => $url,
+        'filename' => $filename
+    ] );
+}
+else {
 ?>
 <script>
     var data = {};
@@ -63,3 +71,14 @@ else {
     data.filename = "<?php echo $filename?>";
     parent.postMessage(data, "*");
 </script>
+<?php } ?>
+
+
+<?php
+function error($code, $message) {
+    die( json_encode( [ 'code'=>$code, 'message'=>$message]));
+}
+function check_input() {
+    if ( empty( $_REQUEST['domain'] ) ) error( -500123, "Input domain" );
+    if ( empty( $_REQUEST['uid'] ) ) error( -500123, "Input uid" );
+}
