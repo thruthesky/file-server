@@ -1,0 +1,12 @@
+[29-Dec-2016 02:35:31 Asia/Seoul] PHP Notice:  Undefined index: userfile in C:\work\www\file-server\file-upload.php on line 3
+[29-Dec-2016 02:35:31 Asia/Seoul] PHP Notice:  Undefined index: extension in C:\work\www\file-server\file-upload.php on line 13
+[29-Dec-2016 02:35:31 Asia/Seoul] PHP Notice:  Undefined index: domain in C:\work\www\file-server\file-upload.php on line 22
+[29-Dec-2016 02:35:31 Asia/Seoul] PHP Notice:  Undefined index: domain in C:\work\www\file-server\file-upload.php on line 27
+[29-Dec-2016 02:37:20 Asia/Seoul] PHP Notice:  Undefined index: extension in C:\work\www\file-server\file-upload.php on line 13
+[29-Dec-2016 02:37:20 Asia/Seoul] PHP Notice:  Undefined index: domain in C:\work\www\file-server\file-upload.php on line 22
+[29-Dec-2016 02:37:20 Asia/Seoul] PHP Notice:  Undefined index: domain in C:\work\www\file-server\file-upload.php on line 27
+[29-Dec-2016 02:37:35 Asia/Seoul] PHP Notice:  Undefined index: domain in C:\work\www\file-server\file-upload.php on line 22
+[29-Dec-2016 02:37:35 Asia/Seoul] PHP Notice:  Undefined index: domain in C:\work\www\file-server\file-upload.php on line 27
+[29-Dec-2016 02:51:37 Asia/Seoul] PHP Warning:  include(list): failed to open stream: No such file or directory in C:\work\www\file-server\index.php on line 21
+[29-Dec-2016 02:51:37 Asia/Seoul] PHP Warning:  include(): Failed opening 'list' for inclusion (include_path='.;C:\php\pear') in C:\work\www\file-server\index.php on line 21
+[29-Dec-2016 02:53:10 Asia/Seoul] PHP Fatal error:  Call to undefined function encode_json() in C:\work\www\file-server\list.php on line 7

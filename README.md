@@ -4,6 +4,17 @@ File management server
 
 
 
+# version 2016-12-29
+
+* 복잡한 md5, domain, uid 를 없앴다.
+* folder 옵션을 주어서 폴더를 선택 할 수 있도록 했다.
+
+## Getting file list of a folder.
+
+?action=list&folder=jaeho
+
+
+
 
 # 중요
 
