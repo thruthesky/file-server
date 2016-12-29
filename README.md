@@ -12,6 +12,7 @@ File management server
 ## Getting file list of a folder.
 
 ?action=list&folder=jaeho
+ex) http://work.org/file-server/index.php?action=list&folder=JJJJ
 
 
 

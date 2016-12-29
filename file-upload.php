@@ -1,7 +1,17 @@
 <?php
 
-$file = $_FILES["userfile"];
 
+/**
+ * --------------------- EDIT ---------------------------
+ */
+$_url = "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+$_arr = explode("index.php", $_url);
+$url_file_server = $_arr[0];
+
+$file = $_FILES["file"];
+
+$error = '';
+$url = '';
 
 
 // Sanitize filename.
@@ -27,12 +37,10 @@ $path_upload = "$dir/{$first_md5}.$ext";
 
 if ( $file['error'] ) die($file['error']);
 if ( ! @move_uploaded_file( $file['tmp_name'], $path_upload ) ) {
-    $url = "";
     $e = error_get_last();
     $error = "$e[message] at $e[line] on $e[file]";
 }
 else {
-    $error = '';
     $url = "$url_file_server$path_upload";
 }
 if ( isset($_REQUEST['url_return']) ) {
@@ -41,14 +49,11 @@ if ( isset($_REQUEST['url_return']) ) {
             location.href='$_REQUEST[url_return]';
         </script>
     ";
+    exit;
 }
-else {
-    echo json_encode( [
-        'error' => $error,
-        'url' => $url,
-        'filename' => $filename
-    ] );
-}
-function error($code, $message) {
-    die( json_encode( [ 'code'=>$code, 'message'=>$message]));
-}
+
+echo json_encode( [
+    'error' => $error,
+    'url' => $url,
+    'filename' => $filename
+] );
