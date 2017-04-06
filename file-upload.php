@@ -8,8 +8,19 @@ $_url = "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
 $_arr = explode("index.php", $_url);
 $url_file_server = $_arr[0];
 
-$file = $_FILES["file"];
 
+//error_log( var_export($_FILES, TRUE), 3, "./debug.log");
+
+if ( isset($_FILES["file"]) ) $file = $_FILES["file"];
+else {
+
+
+	echo json_encode( [
+	    'error' => -404,
+	    'message' => "file not uploaded",
+	] );
+exit;
+}
 $error = '';
 $url = '';
 
@@ -20,7 +31,7 @@ $pi = pathinfo($filename);
 
 $first_md5 = md5($filename . time() . $_SERVER['REMOTE_ADDR']);
 
-if ( $pi['extension'] ) {
+if ( isset($pi['extension']) ) {
     $ext = strtolower($pi['extension']);
 }
 else $ext = '';
@@ -43,7 +54,7 @@ if ( ! @move_uploaded_file( $file['tmp_name'], $path_upload ) ) {
 else {
     $url = "$url_file_server$path_upload";
 }
-if ( isset($_REQUEST['url_return']) ) {
+if ( empty($error) && isset($_REQUEST['url_return']) ) {
     echo "
         <script>
             location.href='$_REQUEST[url_return]';

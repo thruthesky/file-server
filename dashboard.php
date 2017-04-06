@@ -10,8 +10,8 @@
 <h1>Dashboard</h1>
 <form enctype="multipart/form-data" action="index.php" method="POST">
     <input type="hidden" name="url_return" value="index.php">
-    <input type="hidden" name="folder" value="jaeho">
-    Send this file: <input name="userfile" type="file" />
+    <input type="hidden" name="folder" value="temp">
+    Send this file: <input type="file" name="file" />
     <input type="submit" value="Upload File" />
 </form>
 
