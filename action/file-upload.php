@@ -1,4 +1,22 @@
 <?php
+$filename = basename($_FILES['userfile']['name']);
+$filename = get_safe_name( $filename );
+$uploadfile = $uploaddir . $filename;
+
+$re = saveFileInfo($uploadfile, $_FILES['userfile']);
+if ( ! $re ) {
+	error(-120, "Failed to save file information.");
+}
+
+
+if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
+	success(['userfile' => $_FILES['userfile']]);
+} else {
+	$reason = "Possible file upload attack!";
+	error(-130, $reason);
+}
+
+
 
 
 /**

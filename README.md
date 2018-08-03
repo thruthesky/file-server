@@ -4,6 +4,14 @@ REST API 를 통한 파일 업로드 관리 서버
 
 ## 파일 업로드 방법
 
+* endpoint index.php
+* parameter
+    * uid - user id.
+    * secret - user secret string to update/delete file.
+    * userfile - is `type=file name=userifle` of HTML FORM.
+
+
+
 ## 파일 삭제 방법
 
 ## 파일 다운로드 방법
@@ -11,7 +19,10 @@ REST API 를 통한 파일 업로드 관리 서버
 
 
 
-# -- 이하 오래 된 설명 (2018년 7월 이전 설명) --
+## -- 이하 오래 된 설명 (2018년 7월 이전 설명) --
+
+* 옛날 버전은 old-version-before-2018-07 브랜치를 본다.
+
 
 # version 2016-12-29
 

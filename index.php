@@ -10,9 +10,11 @@
 // --------------------- DON'T EDIT THIS FILE ---------------------
 
 include 'etc/preflight.php';
+include 'etc/config.php';
+include 'library.php';
 
-if ( isset($_FILES) && count($_FILES) ) include "file-upload.php";
-else if ( isset( $_REQUEST['action'] ) ) include $_REQUEST['action'] . '.php';
-else include "dashboard.php";
-
-
+if ( isset($_REQUEST['action']) ) {
+	include "action/" . $_REQUEST['action'] . '.php';
+} else {
+	error(-2, 'No action provided');
+}
