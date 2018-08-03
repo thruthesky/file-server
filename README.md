@@ -6,10 +6,15 @@ REST API 를 통한 파일 업로드 관리 서버
 
 * endpoint index.php
 * parameter
+    * action=file-upload
     * uid - user id.
     * secret - user secret string to update/delete file.
     * userfile - is `type=file name=userifle` of HTML FORM.
 
+uid, secret, server secret 을 md5 한다. 따라서, 파일 삭제 할 때, uid, secret 을 올바로 입력하면 된다.
+예를 들어,
+    - 비 회원 글 작성을 한다면, 글 작성자는 비밀번호를 입력해야 할 것이다. 그 비밀번호를 secret 에 입력하면된다.
+    - 소셜 로그인이면, 소셜 로그인 uid 가 있을 것이다. 그 값을 사용하면 된다.
 
 
 ## 파일 삭제 방법
@@ -17,6 +22,10 @@ REST API 를 통한 파일 업로드 관리 서버
 ## 파일 다운로드 방법
 
 
+## 테스트 방법
+
+$ php test/test-file-upload.php 
+ 
 
 
 ## -- 이하 오래 된 설명 (2018년 7월 이전 설명) --
