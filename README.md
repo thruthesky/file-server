@@ -1,8 +1,17 @@
 # File Upload
 
-File management server
+REST API 를 통한 파일 업로드 관리 서버
+
+## 파일 업로드 방법
+
+## 파일 삭제 방법
+
+## 파일 다운로드 방법
 
 
+
+
+# -- 이하 오래 된 설명 (2018년 7월 이전 설명) --
 
 # version 2016-12-29
 
@@ -95,6 +104,7 @@ the folder path should be "data/upload/domain" where 'domain' is the input of fi
 
 
 # Coding guide
+
 
 ## Input query variable
 

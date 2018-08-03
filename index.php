@@ -6,11 +6,10 @@
  * @see README.md
  *
  */
-// --------------------- DON'T EDIT ---------------------
-header('Access-Control-Allow-Origin: *');
-header("Access-Control-Allow-Methods: GET,POST");
 
+// --------------------- DON'T EDIT THIS FILE ---------------------
 
+include 'etc/preflight.php';
 
 if ( isset($_FILES) && count($_FILES) ) include "file-upload.php";
 else if ( isset( $_REQUEST['action'] ) ) include $_REQUEST['action'] . '.php';
