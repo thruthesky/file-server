@@ -13,6 +13,10 @@ function isTest() {
 	return $_TEST;
 }
 
+function dog($data) {
+	error_log( var_export($data, TRUE) . "\n", 3, "data/debug.log");
+}
+
 /**
  * @param $code
  * @param $message

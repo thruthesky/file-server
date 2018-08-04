@@ -2,6 +2,14 @@
 
 REST API 를 통한 파일 업로드 관리 서버
 
+
+## 테스트 방법
+
+$ php test/test-file-upload.php 
+ 
+## 디버그 방법
+
+
 ## 파일 업로드 방법
 
 * endpoint index.php
@@ -21,11 +29,6 @@ uid, secret, server secret 을 md5 한다. 따라서, 파일 삭제 할 때, uid
 
 ## 파일 다운로드 방법
 
-
-## 테스트 방법
-
-$ php test/test-file-upload.php 
- 
 
 
 ## -- 이하 오래 된 설명 (2018년 7월 이전 설명) --

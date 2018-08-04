@@ -3,7 +3,8 @@ $filename = basename($_FILES['userfile']['name']);
 $filename = get_safe_name( $filename );
 $uploadfile = $uploaddir . '/' . $filename;
 
-if ( isset($_FILES['userfile']['error']) ) return error( $_FILES['userfile']['error'] * -1, codeToMessage($_FILES['userfile']['error']));
+dog($_FILES);
+if ( isset($_FILES['userfile']['error']) && $_FILES['userfile']['error'] ) return error( $_FILES['userfile']['error'] * -1, codeToMessage($_FILES['userfile']['error']));
 
 if ( ! isTest() ) {
 	if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
@@ -14,6 +15,7 @@ if ( ! isTest() ) {
 	}
 }
 
+//dog("DI? -----");
 
 $re = saveFileInfo($uploadfile, $_FILES['userfile']);
 if ( ! $re ) {
