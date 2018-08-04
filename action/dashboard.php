@@ -13,9 +13,14 @@ Files uploaded in 'temp' folder
 <hr>
 <div class="temp files">
 <?php
-foreach (glob("data/temp/*") as $filename) {
+$uploadfile = $uploaddir;
+foreach (glob("$uploadfile/*") as $filename) {
     // echo "$filename size " . filesize($filename) . "<br>";
-    echo "<img src='$filename'>";
+    if ( preg_match("/\.info$/", $filename) ) {
+        // file info.
+    } else {
+	    echo "<img src='$filename'>";
+    }
 }
 ?>
 </div>

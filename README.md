@@ -2,6 +2,30 @@
 
 REST API 를 통한 파일 업로드 관리 서버
 
+## TODO
+
+* 파일 삭제
+    * 파일 삭제를 하려면 uid 와 secret 을 입력 하면 삭제 하도록 한다.
+    * /index.php?action=delete&uid=xxx&secret=xxxx&path=/data/upload/......
+    * 파일을 삭제할 때에는 .info 파일도 같이 삭제를 해야 한다.
+    
+* 파일 썸네일(리사이즈) 기능
+    * /index.php?action=resize&width=xxx&height=xxxx&resize=crop 와 같이 호출하고,
+        파일이 이미 만들어져 있으면, 다시 만들지 않고 그냥 보여준다.
+    * 썸네일 폴더는 data/thumbnails 폴더를 따로 만들어서, 언제든지 삭제 할 수 있도록 한다.
+
+* 파일 리스트
+    * /action/list.php 를 수정하여 파일 목록만 볼 수 있도록 할 것.
+
+
+
+
+## 관리
+
+* /index.php?action=dashboard 로 접속하여 업로드된 파일을 볼 수 있음.
+
+
+
 
 ## 테스트 방법
 
