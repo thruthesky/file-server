@@ -14,7 +14,9 @@ function isTest() {
 }
 
 function dog($data) {
-	error_log( var_export($data, TRUE) . "\n", 3, "data/debug.log");
+    if ( DEBUG_LOG ) {
+        error_log( var_export($data, TRUE) . "\n", 3, "data/debug.log");
+    }
 }
 
 /**
