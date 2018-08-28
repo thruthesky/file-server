@@ -48,12 +48,13 @@ function get_upload_filename($file, $uid = 0, $secret = '') {
 
     $u = md5(uniqid(rand() . $file['name'], true));
     $s = md5( $server_secret . $uid . $secret );
-    $name = mb_strcut($file['name'], 0, 72); // 파일 이름은 최대 72글자로 제한.
+    $name = mb_strcut($file['name'], 0, 120); // 파일 이름은 최대 120글자로 제한.
 //    $i = base64_encode( urlencode($name) . "_|_" . $file['size'] );
 
     $i = $name . ' ' . $file['size'];
 
-    return "$u-$s-$i.$ext";
+    return [ $u, $s, "$i.$ext"];
+//    return "$u-$s-$i.$ext";
 }
 //function get_safe_name($filename, $uid = '0', $secret = '') {
 //	global $server_secret;

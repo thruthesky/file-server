@@ -25,9 +25,9 @@ REST API 를 통한 파일 업로드 관리 서버
         공식
             u = md5() 임의 값
             s = md5( $server_secret + uid + secret )
-            i = base64(파일이름`'`용량`'`)
+            i = 파일이름 크기
             
-            파일 명: a-s-i.확장자
+            파일 명: a/s/i.확장자
 
 
 ## 관리

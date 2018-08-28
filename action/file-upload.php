@@ -2,8 +2,14 @@
 //$filename = basename($_FILES['userfile']['name']);
 //$filename = get_safe_name( $filename );
 $file = $_FILES['userfile'];
-$filename = get_upload_filename( $file, $_REQUEST['uid'], $_REQUEST['secret'] );
-$uploadfile = $uploaddir . '/' . $filename;
+$arr = get_upload_filename( $file, $_REQUEST['uid'], $_REQUEST['secret'] );
+
+$filename = $arr[2];
+$unique_folder = $uploaddir . '/' . $arr[0];
+mkdir( $unique_folder );
+$key = $unique_folder . '/' . $arr[1];
+mkdir( $key );
+$uploadfile = $key . '/' . $filename;
 
 //dog($_FILES);
 if ( isset($_FILES['userfile']['error']) && $_FILES['userfile']['error'] ) return error( $_FILES['userfile']['error'] * -1, codeToMessage($_FILES['userfile']['error']));
