@@ -18,6 +18,16 @@ REST API 를 통한 파일 업로드 관리 서버
     * /action/list.php 를 수정하여 파일 목록만 볼 수 있도록 할 것.
 
 
+## Change Log
+
+* 파일 업로드를 할 때, 파일 정보를 따로 .info 파일에 저장하지 않는다.
+    => 파일명 자체에 모두 저장한다.
+        공식
+            u = md5() 임의 값
+            s = md5( $server_secret + uid + secret )
+            i = base64(파일이름`'`용량`'`)
+            
+            파일 명: a-s-i.확장자
 
 
 ## 관리

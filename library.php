@@ -33,29 +33,51 @@ function error($code, $message) {
 function success($data) {
 	echo json_encode(['code' => 0, 'data' => $data]);
 }
-function get_safe_name($filename, $uid = '0', $secret = '') {
-	global $server_secret;
 
-	$pi = pathinfo($filename);
+function get_upload_filename($file, $uid = 0, $secret = '') {
+    global $server_secret;
 
-	if ( isset($pi['extension']) ) {
-		$ext = strtolower($pi['extension']);
-	}
-	else {
-		$ext = '';
-	}
 
-	return md5($filename) . '-' . md5("$uid,$secret,$server_secret") . '.' . $ext;
+    $pi = pathinfo($file['name']);
+    if ( isset($pi['extension']) ) {
+        $ext = strtolower($pi['extension']);
+    }
+    else {
+        $ext = '';
+    }
+
+    $u = md5(uniqid(rand() . $file['name'], true));
+    $s = md5( $server_secret . $uid . $secret );
+    $name = mb_strcut($file['name'], 0, 72); // 파일 이름은 최대 72글자로 제한.
+//    $i = base64_encode( urlencode($name) . "_|_" . $file['size'] );
+
+    $i = $name . ' ' . $file['size'];
+
+    return "$u-$s-$i.$ext";
 }
+//function get_safe_name($filename, $uid = '0', $secret = '') {
+//	global $server_secret;
+//
+//	$pi = pathinfo($filename);
+//
+//	if ( isset($pi['extension']) ) {
+//		$ext = strtolower($pi['extension']);
+//	}
+//	else {
+//		$ext = '';
+//	}
+//
+//	return md5($filename) . '-' . md5("$uid,$secret,$server_secret") . '.' . $ext;
+//}
 
-function saveFileInfo($filename, $info) {
-	$path = "$filename.info";
-	$up = [ 'name' => $info['name'], 'type' => $info['type'], 'size' => $info['size'], 'path' => $filename ];
-	$str = serialize($up);
-	$re = file_put_contents( $path, $str );
-	if ( ! $re ) return false;
-	return $up;
-}
+//function saveFileInfo($filename, $info) {
+//	$path = "$filename.info";
+//	$up = [ 'name' => $info['name'], 'type' => $info['type'], 'size' => $info['size'], 'path' => $filename ];
+//	$str = serialize($up);
+//	$re = file_put_contents( $path, $str );
+//	if ( ! $re ) return false;
+//	return $up;
+//}
 
 function codeToMessage($code)
 {

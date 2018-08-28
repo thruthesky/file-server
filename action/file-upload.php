@@ -1,9 +1,11 @@
 <?php
-$filename = basename($_FILES['userfile']['name']);
-$filename = get_safe_name( $filename );
+//$filename = basename($_FILES['userfile']['name']);
+//$filename = get_safe_name( $filename );
+$file = $_FILES['userfile'];
+$filename = get_upload_filename( $file, $_REQUEST['uid'], $_REQUEST['secret'] );
 $uploadfile = $uploaddir . '/' . $filename;
 
-dog($_FILES);
+//dog($_FILES);
 if ( isset($_FILES['userfile']['error']) && $_FILES['userfile']['error'] ) return error( $_FILES['userfile']['error'] * -1, codeToMessage($_FILES['userfile']['error']));
 
 if ( ! isTest() ) {
@@ -15,12 +17,14 @@ if ( ! isTest() ) {
 	}
 }
 
+$re = [ 'name' => $file['name'], 'type' => $file['type'], 'size' => $file['size'], 'path' => $uploadfile ];
+
 //dog("DI? -----");
 
-$re = saveFileInfo($uploadfile, $_FILES['userfile']);
-if ( ! $re ) {
-	return error(-120, "Failed to save file information.");
-}
+//$re = saveFileInfo($uploadfile, $_FILES['userfile']);
+//if ( ! $re ) {
+//	return error(-120, "Failed to save file information.");
+//}
 
 
 success( $re );
